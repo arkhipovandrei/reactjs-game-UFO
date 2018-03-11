@@ -1,5 +1,5 @@
 import React from 'react';
-import {SKY_AND_GROUND_WIDTH} from '../utils/constants';
+import {SKY_AND_GROUND_WIDTH} from '../../utils/constants';
 
 const Sky = () => {
   const skyStyle = {

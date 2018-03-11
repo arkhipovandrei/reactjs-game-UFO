@@ -1,5 +1,5 @@
 import React from 'react';
-import {SKY_AND_GROUND_WIDTH} from '../utils/constants';
+import {SKY_AND_GROUND_WIDTH} from '../../utils/constants';
 
 const Ground = () => {
   const groundStyle = {
@@ -13,17 +13,17 @@ const Ground = () => {
 
   return (
     <g id="ground">
-       <rect
-         id="ground-2"
-         data-name="ground"
-         style={groundStyle}
-         x={SKY_AND_GROUND_WIDTH / -2}
-         y={0}
-         width={SKY_AND_GROUND_WIDTH}
-         height={100}
-       />
+      <rect
+        id="ground-2"
+        data-name="ground"
+        style={groundStyle}
+        x={SKY_AND_GROUND_WIDTH / -2}
+        y={0}
+        width={SKY_AND_GROUND_WIDTH}
+        height={100}
+      />
       <line
-        x1={SKY_AND_GROUND_WIDTH/ -2}
+        x1={SKY_AND_GROUND_WIDTH / -2}
         y1={0}
         x2={SKY_AND_GROUND_WIDTH / 2}
         y2={0}
