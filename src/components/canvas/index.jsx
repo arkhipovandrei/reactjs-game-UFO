@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {gameHeight} from '../../utils/constants'
 import Sky from './Sky';
 import Ground from './Ground';
 import CurrentScore from './CurrentScore';
@@ -13,10 +14,19 @@ import Title from './Title';
 
 const Canvas = (props) => {
 
-  const gameHeight = 1200;
   const windowWidth = window.innerWidth;
 
   const viewBox = [windowWidth / -2, 100 - gameHeight, windowWidth, gameHeight];
+
+  const lives = [];
+  for (let i = 0; i < props.gameState.lives; i++) {
+    const heartPosition = {
+      x: -180 - (i * 70),
+      y: 35
+    };
+    lives.push(<Heart key={i} position={heartPosition}/>);
+  }
+
 
   return (
     <svg
@@ -24,6 +34,7 @@ const Canvas = (props) => {
       preserveAspectRatio="xMaxYMax none"
       viewBox={viewBox}
       onMouseMove={props.trackMouse}
+      onClick={props.shoot}
     >
       <defs>
         <filter id="shadow">
@@ -34,11 +45,14 @@ const Canvas = (props) => {
       <Sky/>
       <Ground/>
       <Base/>
-
+      {props.gameState.cannonBalls.map(cannonBall => (
+        <Ball
+          key={cannonBall.id}
+          position={cannonBall.position}
+        />
+      ))}
       <Pipe rotation={props.angle}/>
-      <Ball position={{x: 0, y: -100}}/>
-
-      <CurrentScore score={15}/>
+      <CurrentScore score={props.gameState.kills} />
 
       {!props.gameState.started &&
       <g>
@@ -53,7 +67,7 @@ const Canvas = (props) => {
           position={flyingObject.position}
         />
       ))}
-
+      {lives}
     </svg>
   );
 };
@@ -74,6 +88,7 @@ Canvas.propTypes = {
   }).isRequired,
   trackMouse: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
+  shoot: PropTypes.func.isRequired,
 };
 
 export default Canvas;

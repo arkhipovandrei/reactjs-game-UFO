@@ -4,6 +4,11 @@ import {getCanvasPosition} from './utils/formula';
 import Canvas from './components/canvas';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.shoot = this.shoot.bind(this);
+  }
+
   componentDidMount() {
     const self = this;
     setInterval(() => {
@@ -18,6 +23,9 @@ class App extends Component {
     window.onresize();
 
   }
+  shoot() {
+    this.props.shoot(this.canvasMousePosition);
+  }
 
   trackMouse(event) {
     this.canvasMousePosition = getCanvasPosition(event);
@@ -26,6 +34,7 @@ class App extends Component {
   render() {
     return (
       <Canvas
+        shoot={this.shoot}
         angle={this.props.angle}
         gameState={this.props.gameState}
         startGame={this.props.startGame}
@@ -51,6 +60,7 @@ App.propTypes = {
   }).isRequired,
   moveObjects: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
+  shoot: PropTypes.func.isRequired,
 };
 
 export default App;
